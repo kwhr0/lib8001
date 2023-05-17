@@ -1,7 +1,7 @@
 #include "base.h"
 #include "beep.h"
 #include "graph.h"
-#include "time.h"
+#include "_time.h"
 #include "sprite.h"
 #include "mml.h"
 #include "play.h"
