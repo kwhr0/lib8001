@@ -41,7 +41,7 @@ u8 spriteCount(Pattern *anim);
 Sprite *spriteHit(Sprite *s);
 u8 spriteHits(Sprite *s, Sprite *result[], u8 n);
 void spriteFrame(Sprite *s, s16 frame);
-void spriteUpdate();
+void spriteUpdate(void);
 
 #define spriteInit()			(spriteContext(0))
 #define spriteSetupArray(s)		(spriteSetup((Sprite *)s, sizeof(s) / sizeof(s[0]), sizeof(s[0])))

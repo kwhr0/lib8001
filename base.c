@@ -41,7 +41,7 @@ u8 *vramLine(u8 y) {
 	return y < SCREEN_YN ? vram + VRAM_XN * y : 0;
 }
 
-/*static*/inline void clearLine() {
+/*static*/inline void clearLine(void) {
 	u8 i;
 	u8 *p = CLEARLINE;
 	for (i = 0; i <= SCREEN_XN; i++) *p++ = 0;
@@ -60,7 +60,7 @@ u8 *vramLine(u8 y) {
 	}
 }
 
-void cls() {
+void cls(void) {
 	u8 *p = vram;
 	for (u8 i = 0; i < SCREEN_YN; i++) {
 		memcpy(p, CLEARLINE, VRAM_XN);
@@ -77,7 +77,7 @@ void writeChar(u8 c) {
 	p[x] = c;
 }
 
-void newLine() {
+void newLine(void) {
 	cursX = 0;
 	if (++cursY >= screenYn) {
 		--cursY;
@@ -178,7 +178,7 @@ void color(s8 color) {
 	curAttr = color >= 0 ? isColorMode ? (color << 1 | isGraph) << 4 | 8 : color & 7 | isGraph << 7 : ATTR_INVALID;
 }
 
-void cursorOn() {
+void cursorOn(void) {
 	u8 x = cursX + isColorMode;
 	if (width40) x <<= 1;
 	CRTC_CMD = 0x81;
@@ -186,7 +186,7 @@ void cursorOn() {
 	CRTC_PRM = cursY;
 }
 
-void cursorOff() {
+void cursorOff(void) {
 	CRTC_CMD = 0x80;
 }
 
@@ -212,7 +212,7 @@ u8 waitVSync(u8 frames) {
 	return dif;
 }
 
-static void setDMA() {
+static void setDMA(void) {
 	DMA_CMD = 0xc4;
 	DMA_ADR3 = (u16)vram & 0xff;
 	DMA_ADR3 = (u16)vram >> 8;
@@ -225,7 +225,7 @@ u8 vramSwap(u8 frames) {
 	return dif;
 }
 
-void vramSingle() {
+void vramSingle(void) {
 	vram = VRAM;
 	setDMA();
 }
@@ -273,12 +273,12 @@ void setupScreen(u8 width, u8 height, u8 colorMode, u8 _color, u8 graph) {
 
 //// KEYBOARD ////
 
-static void clrKeyBuf() {
+static void clrKeyBuf(void) {
 	keyR = keyW = keyBuf;
 	keyN = 0;
 }
 
-u8 keyPress() {
+u8 keyPress(void) {
 	static const u8 normal[] = {
 		'0', '1', '2', '3', '4', '5', '6', '7',
 		'8', '9', '*', '+', '=', ',', '.', 13,
@@ -457,7 +457,7 @@ void input(u8 *buf, u16 len) {
 
 //// INIT ////
 
-void baseInit() {
+void baseInit(void) {
 	memset(lastPort, 0xff, sizeof(lastPort));
 	lastKey = modifier = 0;
 	IO40 = last40 = 1;

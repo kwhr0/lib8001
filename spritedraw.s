@@ -2,10 +2,12 @@
 	.globl	_spriteDraw
 ; sp+2 src pointer
 ; sp+4 vram pointer
+SRC	=	2
+DST	=	4
 XPOS	=	6	; sp+6 x pix position
-; sp+7 y pix position
+YPOS	=	7	; sp+7 y pix position
 XCNT	=	8	; sp+8 x chr count
-; sp+9 y chr count
+YCNT	=	9	; sp+9 y chr count
 XLIM	=	10	; sp+10 x limit
 YLIM	=	11	; sp+11 y limit
 	.area	_CODE
@@ -21,7 +23,7 @@ _spriteDraw:
 5$:
 	ld	(cx),a
 	ld	b,#0
-	ld	c,7(ix)
+	ld	c,YPOS(ix)
 	sra	c
 	sra	c
 	jp	p,6$
@@ -38,8 +40,8 @@ _spriteDraw:
 	add	hl,hl
 	add	hl,hl
 	add	hl,hl
-	ld	e,4(ix)
-	ld	d,5(ix)
+	ld	e,DST(ix)
+	ld	d,DST+1(ix)
 	add	hl,de
 	ld	b,#0
 	ld	a,(cx)
@@ -49,10 +51,10 @@ _spriteDraw:
 8$:
 	ld	c,a
 	add	hl,bc
-	ld	e,2(ix)
-	ld	d,3(ix)
-	ld	b,9(ix)
-	ld	c,7(ix)
+	ld	e,SRC(ix)
+	ld	d,SRC+1(ix)
+	ld	b,YCNT(ix)
+	ld	c,YPOS(ix)
 	ld	a,c
 	and	#3
 	jp	nz,y_not_aligned

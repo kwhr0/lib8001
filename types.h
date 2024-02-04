@@ -22,4 +22,9 @@ __sfr __at 6 KEY6;
 __sfr __at 7 KEY7;
 __sfr __at 8 KEY8;
 __sfr __at 9 KEY9;
+#ifdef __SDCCCALL
+#define CC0	__sdcccall(0)
+#else
+#define CC0
+#endif
 #endif

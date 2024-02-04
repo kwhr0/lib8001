@@ -116,9 +116,9 @@ void spriteFrame(Sprite *s, s16 frame) {
 	s->curpat = bitmap + s->pat->ofs[frame >> AS];
 }
 
-void spriteDraw(u8 *src, u8 *dst, u8 x, u8 y, u8 xcount, u8 ycount, u8 xlimit, u8 ylimit);
+void spriteDraw(u8 *src, u8 *dst, u8 x, u8 y, u8 xcount, u8 ycount, u8 xlimit, u8 ylimit) CC0;
 
-void spriteUpdate() {
+void spriteUpdate(void) {
 	Sprite *s = ctx->active, *s0 = nil;
 	while (s) {
 		if (s->behavior ? s->behavior(s) : 

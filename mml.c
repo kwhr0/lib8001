@@ -50,7 +50,7 @@ typedef struct Desc {
 static Desc desc[DESC_N];
 static u32 tempo;
 
-void mmlInit() {
+void mmlInit(void) {
 	u8 reg = 0x80;
 	for (Desc *p = desc; p < desc + DESC_N; p++, reg += 0x20) {
 		p->mml = nil;
@@ -192,7 +192,7 @@ static void mmlUpdate(Desc *d) {
 }
 
 #ifndef __SDCC
-static void mmlLoop() {
+static void mmlLoop(void) {
 	Desc *p;
 	for (p = desc; p < desc + DESC_N; p++) p->valid = 0;
 	do {
@@ -237,7 +237,7 @@ void mmlBeginCompile(u8 *p, u16 len) {
 	lim = buf + len - 1;
 }
 
-u16 mmlEndCompile() {
+u16 mmlEndCompile(void) {
 	*bufp++ = TERM;
 	u16 r = bufp - buf;
 	buf = bufp = lim = nil;

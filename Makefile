@@ -18,7 +18,7 @@ tone_dcsg.c: mktone_dcsg.pl
 
 $(DEPEND):
 	rm -f $(DEPEND)
-	for file in $(DEPFILES); do sdcc -MM $$file >> $(DEPEND); done
+	for file in $(DEPFILES); do sdcc -MM $$file | sed -e 's/\.o:/.rel:/' >> $(DEPEND); done
 #	sdcc -MM $(DEPFILES) > $(DEPEND)
 
 clean:; rm -f $(DEPEND) tone.s tone_dcsg.c lib8001.a *.{asm,lk,lst,rel,sym}

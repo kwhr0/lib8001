@@ -16,18 +16,18 @@ typedef struct {
 Player player[PLAYER_N];
 static u8 mute;
 
-extern void (*interruptHandler)();
+extern void (*interruptHandler)(void);
 extern const u8 music[];
 
-void playInit() {
+void playInit(void) {
 	playStopAll();
 	mute = 0;
 }
 
 #if 1
-void playRestore(Player *c, u8 restore);
-void playStopCh(u8 ch);
-void playInterrupt();
+void playRestore(Player *c, u8 restore) CC0;
+void playStopCh(u8 ch) CC0;
+void playInterrupt(void);
 #else
 #define INTERVAL	17
 #define ENV		0xe8
@@ -46,7 +46,7 @@ static void playStopCh(u8 ch) {
 	for (u8 m = 1, d = 0x9f; m < 16; m <<= 1, d += 0x20)
 		if (ch & m) SN = d;
 }
-static void playInterrupt() {
+static void playInterrupt(void) {
 	u8 restore = 0, higher_ch = 0;
 	for (Player *c = player + PLAYER_N - 1; c >= player; c--) {
 		if (!c->p) continue;
@@ -148,7 +148,7 @@ void playStop(u8 index) {
 	playStopCh(restore);
 }
 
-void playStopAll() {
+void playStopAll(void) {
 	u8 l = enterCritical();
 	for (Player *c = player; c < player + PLAYER_N; c++) c->p = nil;
 	exitCritical(l);
