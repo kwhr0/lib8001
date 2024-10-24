@@ -1,4 +1,5 @@
 #include "mml.h"
+#include <cstdlib>
 #include <algorithm>
 #include <map>
 #include <string>
