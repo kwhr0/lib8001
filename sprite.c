@@ -98,7 +98,7 @@ u8 spriteHits(Sprite *s, Sprite *result[], u8 n) {
 }
 
 Sprite *spriteHit(Sprite *s) {
-	Sprite *a[1];
+	static Sprite *a[1];
 	return spriteHits(s, a, 1) ? *a : nil;
 }
 
