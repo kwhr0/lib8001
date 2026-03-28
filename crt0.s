@@ -17,6 +17,7 @@
 	jr	0$
 	ret
 0$:
+	im	1
 	ei
 	call	_main
 1$:
